@@ -45,6 +45,17 @@ g++ -std=c++17 -fsyntax-only 03_Listas_Enlazadas/A_Listas_Simples/01_sorted_inse
 
 ---
 
+## 🤝 Contribuciones
+
+¡Las contribuciones son bienvenidas! Si deseas agregar nuevas soluciones o corregir algún error:
+
+1. Haz un **Fork** de este repositorio.
+2. Crea una rama para tu aporte (`git checkout -b feature/nueva-solucion`).
+3. Asegúrate de que los archivos compilen correctamente (`g++ -c archivo.cpp`).
+4. Haz un **Commit** de tus cambios (`git commit -m "feat: agrega solucion X"`).
+5. Haz un **Push** a la rama (`git push origin feature/nueva-solucion`).
+6. Abre un **Pull Request**.
+
 ## 📁 Estructura del Repositorio
 
 ```text
