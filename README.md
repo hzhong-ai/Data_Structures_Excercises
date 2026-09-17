@@ -1,7 +1,7 @@
 # 🎯 Data Structures Exercises (C++)
 
 Bienvenido a **Data Structures Exercises**. Este repositorio es un laboratorio de prácticas y evaluación en C++ enfocado en la resolución de problemas de estructuras de datos y la depuración de errores de memoria.
-
+##**Nota sobre la estructura:** Las subcarpetas contienen un archivo oculto `.gitkeep` únicamente para preservar la jerarquía del directorio en Git mientras se agregan los ejercicios.
 ---
 
 ## 📌 Tipos de Problemas
