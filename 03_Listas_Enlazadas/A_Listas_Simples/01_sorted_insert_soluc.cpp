@@ -1,11 +1,5 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 03-A: Listas Simples (SortedInsert)
-// TIPO: _soluc (Proponer Solución)
-// OBJETIVO: Implementar inserción ordenada en una lista simplemente enlazada.
-// ============================================================================
+#include <cstddef>
 
 struct Node {
     int data;
@@ -13,27 +7,10 @@ struct Node {
     Node(int val, Node* n = nullptr) : data(val), next(n) {}
 };
 
-// ============================================================================
-// TAREA DEL ESTUDIANTE: IMPLEMENTAR LA INSERCIÓN ORDENADA
-// ============================================================================
-// TODO: Implementa la inserción ordenada. Pista: Necesitas rastrear el nodo 'previo' y el 'actual'.
+// TODO: Implementar la inserción ordenada de 'newNode' en la lista enlazada apuntada por 'headRef'.
+// HINT: Rastrear el nodo anterior ('prev') y el actual ('current') para insertar en la posición correcta.
+// Manejar correctamente el caso límite en que el nodo deba insertarse en la cabeza (prev == nullptr).
 void SortedInsert(Node** headRef, Node* newNode) {
-    // TODO: Implementa la inserción ordenada. Pista: Necesitas rastrear el nodo 'previo' y el 'actual'.
-    Node* current = *headRef;
-    Node* prev = nullptr;
-
-    while (current != nullptr && current->data < newNode->data) {
-        prev = current;
-        current = current->next;
-    }
-
-    if (prev == nullptr) {
-        newNode->next = *headRef;
-        *headRef = newNode;
-    } else {
-        newNode->next = current;
-        prev->next = newNode;
-    }
 }
 
 void freeList(Node*& head) {
@@ -45,9 +22,8 @@ void freeList(Node*& head) {
 }
 
 int main() {
-    std::cout << "--- [03-A_soluc] PRUEBA: SortedInsert en Lista Simple ---\n";
-
     Node* head = nullptr;
+
     SortedInsert(&head, new Node(30));
     SortedInsert(&head, new Node(10));
     SortedInsert(&head, new Node(40));
@@ -63,6 +39,5 @@ int main() {
     assert(curr == nullptr);
 
     freeList(head);
-    std::cout << "✅ [PASS] 01_sorted_insert_soluc.cpp completado exitosamente.\n";
-
+    return 0;
 }

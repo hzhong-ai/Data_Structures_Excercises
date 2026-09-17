@@ -1,11 +1,5 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 03-A: SinglyLinkedList pop_back()
-// TIPO: _soluc (Proponer Solución)
-// OBJETIVO: Eliminar el último elemento de una lista manteniendo head y tail.
-// ============================================================================
+#include <cstddef>
 
 class SinglyLinkedList {
 private:
@@ -43,27 +37,12 @@ public:
         size_++;
     }
 
-    // TODO: Implementa pop_back(). Si la lista queda vacía, deja head y tail en nullptr.
+    // TODO: Implementar pop_back().
+    // HINT: 
+    // 1. Si la lista está vacía, retornar false.
+    // 2. Si la lista tiene un solo elemento (head == tail), liberar el nodo, dejar head y tail en nullptr, actualizar size_ y retornar true.
+    // 3. Si tiene más de un elemento, recorrer la lista hasta el penúltimo nodo (curr->next == tail), liberar 'tail', actualizar 'tail' a 'curr', colocar tail->next = nullptr, decrementar size_ y retornar true.
     bool pop_back() {
-        if (head == nullptr) return false;
-
-        if (head == tail) {
-            delete head;
-            head = tail = nullptr;
-            size_ = 0;
-            return true;
-        }
-
-        Node* curr = head;
-        while (curr->next != tail) {
-            curr = curr->next;
-        }
-
-        delete tail;
-        tail = curr;
-        tail->next = nullptr;
-        size_--;
-        return true;
     }
 
     size_t size() const { return size_; }
@@ -72,8 +51,6 @@ public:
 };
 
 int main() {
-    std::cout << "--- [03-A_soluc] PRUEBA: SinglyLinkedList pop_back() ---\n";
-
     SinglyLinkedList list;
     list.push_back(100);
     list.push_back(200);
@@ -87,7 +64,7 @@ int main() {
 
     assert(list.pop_back());
     assert(list.empty());
+    assert(!list.pop_back());
 
-    std::cout << "✅ [PASS] 02_singly_pop_back_soluc.cpp completado exitosamente.\n";
     return 0;
 }

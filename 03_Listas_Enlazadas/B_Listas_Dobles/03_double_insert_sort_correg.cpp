@@ -36,36 +36,44 @@ public:
         }
     }
 
-    // TODO: Implementar el algoritmo de Insertion Sort para listas doblemente enlazadas.
-    // Requisitos:
-    // 1. Ordenar la lista in-place (O(1) memoria auxiliar).
-    // 2. Reconectar correctamente los punteros 'prev' y 'next' en cada desplazamiento.
-    // 3. Mantener actualizados los punteros de los bordes 'head' y 'tail'.
+    // TODO: Corregir los 3 BUGS en el algoritmo de Insertion Sort para listas dobles.
+    //
+    // BUG 1 (Pérdida de Puntero al Avanzar): Al extraer 'curr' para moverlo hacia atrás,
+    //       se modifica 'curr->next' antes de guardar el puntero al siguiente nodo no procesado,
+    //       haciendo imposible continuar el bucle principal.
+    //
+    // BUG 2 (Desconexión 'prev' al Insertar): Al insertar 'curr' antes del nodo objetivo,
+    //       se asignan los enlaces 'next', pero se olvida actualizar el puntero 'prev' del
+    //       nodo desplazado, rompiendo la navegación hacia atrás.
+    //
+    // BUG 3 (Desactualización de Tail): Cuando el último elemento de la lista es desplazado
+    //       hacia la izquierda, 'tail' sigue apuntando a él en su posición antigua, dejando
+    //       la cola desalineada.
     void insertion_sort() {
         if (!head || !head->next) return;
 
         DNode* curr = head->next;
 
         while (curr != nullptr) {
-            DNode* next_node = curr->next;
+            // BUG 1: Falta guardar el puntero 'next_node' antes de mover 'curr'
             DNode* target = curr->prev;
 
-            // Buscar la posición de inserción hacia la izquierda
+            // Buscar la posición correcta hacia la izquierda
             while (target != nullptr && target->data > curr->data) {
                 target = target->prev;
             }
 
-            // Si el nodo debe reubicarse
+            // Si se necesita mover el nodo 'curr'
             if (target != curr->prev) {
                 // Desconectar 'curr' de su posición actual
                 curr->prev->next = curr->next;
                 if (curr->next != nullptr) {
                     curr->next->prev = curr->prev;
                 } else {
-                    tail = curr->prev;
+                    // BUG 3: Se omite actualizar 'tail = curr->prev' al mover el último nodo
                 }
 
-                // Reinsertar 'curr' después de 'target'
+                // Reinsertar 'curr' después de 'target' (o en la cabeza si target es nullptr)
                 if (target == nullptr) {
                     curr->next = head;
                     curr->prev = nullptr;
@@ -74,14 +82,13 @@ public:
                 } else {
                     curr->next = target->next;
                     curr->prev = target;
-                    if (target->next != nullptr) {
-                        target->next->prev = curr;
-                    }
+                    // BUG 2: Falta actualizar target->next->prev = curr si target->next existe
                     target->next = curr;
                 }
             }
 
-            curr = next_node;
+            // BUG 1: El avance usa 'curr->next', que ya fue sobrescrito durante la recolocación
+            curr = curr->next;
         }
     }
 

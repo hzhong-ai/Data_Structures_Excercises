@@ -1,21 +1,14 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 03-B: Lista Doble y Punteros 'prev'
-// TIPO: _correg (Corregir Bug)
-// OBJETIVO: Reparar la actualización de enlaces hacia atrás (prev).
-// ============================================================================
-
-struct DNode {
-    int data;
-    DNode* prev;
-    DNode* next;
-    DNode(int val, DNode* p = nullptr, DNode* n = nullptr) : data(val), prev(p), next(n) {}
-};
+#include <cstddef>
 
 class DoublyLinkedList {
 private:
+    struct DNode {
+        int data;
+        DNode* prev = nullptr;
+        DNode* next = nullptr;
+    };
+
     DNode* head = nullptr;
     DNode* tail = nullptr;
 
@@ -29,20 +22,23 @@ public:
         }
     }
 
+    // TODO: Corregir el bug en la reconexión hacia atrás en push_back().
+    // BUG: El recorrido hacia adelante funciona correctamente, pero el recorrido hacia atrás
+    // falla o causa lecturas de memoria inválida porque se omite la actualización de 'newNode->prev'.
+    // HINT: Asegurar que 'newNode->prev' apunte a 'tail' antes de actualizar 'tail = newNode'.
     void push_back(int val) {
-        DNode* newNode = new DNode(val);
+        DNode* newNode = new DNode;
+        newNode->data = val;
+        newNode->prev = nullptr;
+        newNode->next = nullptr;
+
         if (head == nullptr) {
             head = tail = newNode;
             return;
         }
 
-        // ====================================================================
-        // TAREA DEL ESTUDIANTE: IDENTIFICAR Y CORREGIR EL BUG EN PREV
-        // ====================================================================
-        // BUG: El recorrido hacia adelante funciona, pero hacia atrás se cuelga. Revisa la actualización del puntero 'prev'.
-        
         tail->next = newNode;
-        newNode->prev = tail; // <- CORRECCIÓN DEL ESTUDIANTE
+        // BUG: Falta asignar newNode->prev = tail;
         tail = newNode;
     }
 
@@ -66,8 +62,6 @@ public:
 };
 
 int main() {
-    std::cout << "--- [03-B_correg] PRUEBA: Lista Doble Prev Bug ---\n";
-
     DoublyLinkedList dll;
     dll.push_back(10);
     dll.push_back(20);
@@ -79,6 +73,5 @@ int main() {
     assert(dll.verify_forward(fwd, 3));
     assert(dll.verify_backward(bwd, 3));
 
-    std::cout << "✅ [PASS] 01_lista_doble_prev_correg.cpp corregido exitosamente.\n";
     return 0;
 }
