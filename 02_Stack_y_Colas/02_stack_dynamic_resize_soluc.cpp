@@ -1,11 +1,5 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 02: Stack Dinámico con Redimensionamiento
-// TIPO: _soluc (Proponer Solución)
-// OBJETIVO: Implementar la reasignación de memoria al doble de capacidad.
-// ============================================================================
+#include <cstddef>
 
 template <typename T>
 class ResizableStack {
@@ -14,15 +8,9 @@ private:
     size_t size = 0;
     size_t capacity = 0;
 
-    // TODO: Implementa reallocate(new_cap). Debe crear nuevo arreglo, copiar y liberar el anterior.
+    // TODO: Implementar reallocate(new_cap). Debe alojar un nuevo arreglo, 
+    // copiar los elementos actuales, liberar la memoria anterior y actualizar capacidad.
     void reallocate(size_t new_cap) {
-        T* new_data = new T[new_cap];
-        for (size_t i = 0; i < size; ++i) {
-            new_data[i] = data[i];
-        }
-        delete[] data;
-        data = new_data;
-        capacity = new_cap;
     }
 
 public:
@@ -34,12 +22,9 @@ public:
         delete[] data;
     }
 
-    // TODO: Implementa push. Debe llamar a reallocate(capacity * 2) si size == capacity.
+    // TODO: Implementar push. Debe invocar reallocate(capacity * 2) cuando size == capacity
+    // e insertar el nuevo elemento.
     void push(const T& val) {
-        if (size == capacity) {
-            reallocate(capacity * 2);
-        }
-        data[size++] = val;
     }
 
     void pop() {
@@ -55,8 +40,6 @@ public:
 };
 
 int main() {
-    std::cout << "--- [02_soluc] PRUEBA: Stack Redimensionable ---\n";
-
     ResizableStack<int> s(2);
     assert(s.get_capacity() == 2);
 
@@ -64,12 +47,11 @@ int main() {
     s.push(200);
     assert(s.get_capacity() == 2);
 
-    // Provoca reallocate al doble (capacidad pasa a 4)
+    // Provoca reallocate al doble (capacidad pasa de 2 a 4)
     s.push(300);
     assert(s.get_capacity() == 4);
     assert(s.get_size() == 3);
     assert(s.top() == 300);
 
-    std::cout << "✅ [PASS] 02_stack_dynamic_resize_soluc.cpp completado exitosamente.\n";
     return 0;
 }

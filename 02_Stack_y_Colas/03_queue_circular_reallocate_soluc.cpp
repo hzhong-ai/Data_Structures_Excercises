@@ -1,11 +1,5 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 02: Cola Circular Dinámica (Reallocate)
-// TIPO: _soluc (Proponer Solución)
-// OBJETIVO: Implementar la des-circularización del arreglo durante la reasignación.
-// ============================================================================
+#include <cstddef>
 
 template <typename T>
 class CircularQueue {
@@ -15,17 +9,10 @@ private:
     size_t size = 0;
     size_t capacity = 0;
 
-    // TODO: Redimensiona y des-circulariza el arreglo en un nuevo bloque lineal.
-    // Fórmula de acceso al elemento i en la cola circular: (head + i) % capacity
+    // TODO: Redimensionar y des-circularizar el arreglo en un nuevo bloque lineal.
+    // HINT: Mapear cada elemento i con la fórmula de acceso circular: (head + i) % capacity,
+    // copiar al nuevo buffer en orden lineal, actualizar 'head' a 0 y liberar la memoria anterior.
     void reallocate(size_t new_cap) {
-        T* new_data = new T[new_cap];
-        for (size_t i = 0; i < size; ++i) {
-            new_data[i] = data[(head + i) % capacity];
-        }
-        delete[] data;
-        data = new_data;
-        head = 0;
-        capacity = new_cap;
     }
 
 public:
@@ -57,19 +44,17 @@ public:
 };
 
 int main() {
-    std::cout << "--- [02_soluc] PRUEBA: Cola Circular Reallocate ---\n";
-
     CircularQueue<int> q(3);
     q.push(10);
     q.push(20);
     q.push(30);
 
-    q.pop(); // Libera 10 (head avanza a 1)
-    q.push(40); // Insertar circular en posición 0
+    q.pop();    // Libera 10 (head avanza al índice 1)
+    q.push(40); // Inserción circular en el índice 0
 
     assert(q.front() == 20);
 
-    // Forzar reallocate en estado circular
+    // Provoca reallocate al estar en estado envuelto (wrapped)
     q.push(50);
 
     assert(q.front() == 20);
@@ -79,6 +64,5 @@ int main() {
     q.pop(); assert(q.front() == 40);
     q.pop(); assert(q.front() == 50);
 
-    std::cout << "✅ [PASS] 03_queue_circular_reallocate_soluc.cpp completado exitosamente.\n";
     return 0;
 }

@@ -1,12 +1,5 @@
-#include <iostream>
 #include <cassert>
-#include <stdexcept>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 02: Stack y Corrección de Underflow
-// TIPO: _correg (Corregir Bug)
-// OBJETIVO: Prevenir la corrupción de size_t en pop() cuando la pila está vacía.
-// ============================================================================
+#include <cstddef>
 
 template <typename T>
 class ArrayStack {
@@ -18,7 +11,7 @@ private:
     void reallocate(size_t new_cap) {
         T* new_data = new T[new_cap];
         for (size_t i = 0; i < size; ++i) new_data[i] = data[i];
-        delete[] data;
+        // TODO: Corregir fuga de memoria liberando el arreglo 'data' anterior antes de reasignar.
         data = new_data;
         capacity = new_cap;
     }
@@ -28,28 +21,22 @@ public:
         data = new T[capacity];
     }
 
-    ~ArrayStack() { delete[] data; }
+    // TODO: Corregir destructor liberando la memoria dinámica retenida en 'data'.
+    ~ArrayStack() {}
 
     void push(const T& val) {
         if (size == capacity) reallocate(capacity * 2);
         data[size++] = val;
     }
 
-    // ========================================================================
-    // TAREA DEL ESTUDIANTE: IDENTIFICAR Y CORREGIR EL BUG EN POP()
-    // ========================================================================
-    // BUG: Este pop() causa un Segmentation Fault cuando el Stack está vacío. Corrige el caso especial (Underflow).
+    // TODO: Corregir underflow en 'size' (size_t) cuando la pila está vacía.
     void pop() {
-        // BUG: Este pop() causa un Segmentation Fault cuando el Stack está vacío. Corrige el caso especial (Underflow).
-        if (empty()) {
-            return; // Bloquea el underflow de size
-        }
         size--;
     }
 
+    // TODO: Corregir el índice accedido; debe retornar el último elemento insertado (size - 1).
     T top() const {
-        if (empty()) throw std::underflow_error("Stack vacío");
-        return data[size - 1];
+        return data[size];
     }
 
     bool empty() const { return size == 0; }
@@ -57,22 +44,28 @@ public:
 };
 
 int main() {
-    std::cout << "--- [02_correg] PRUEBA: Stack Underflow Bug ---\n";
-
     ArrayStack<int> s(2);
+
+    // Test Push y Resize (Redimensionamiento seguro)
     s.push(10);
     s.push(20);
+    s.push(30);
+
+    // Test Top
+    assert(s.top() == 30);
+
+    // Test Pop y navegación
+    s.pop();
+    assert(s.top() == 20);
 
     s.pop();
-    assert(s.top() == 10);
     s.pop();
     assert(s.empty());
 
-    // TEST DEL BUG: Llamar pop() en pila vacía no debe corromper el tamaño
+    // Test Underflow
     s.pop();
     assert(s.empty());
     assert(s.get_size() == 0);
 
-    std::cout << "✅ [PASS] 01_stack_underflow_correg.cpp corregido exitosamente.\n";
     return 0;
 }

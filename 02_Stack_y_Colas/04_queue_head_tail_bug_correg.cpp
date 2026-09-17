@@ -1,11 +1,5 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 02: Depuración de Cola Circular
-// TIPO: _correg (Corregir Bug)
-// OBJETIVO: Corregir un error donde pop() olvida decrementar size_.
-// ============================================================================
+#include <cstddef>
 
 class QueueBug {
 private:
@@ -29,26 +23,25 @@ public:
         }
     }
 
-    // ========================================================================
-    // TAREA DEL ESTUDIANTE: CORREGIR EL BUG EN POP()
-    // ========================================================================
-    // BUG: Este pop() hace avanzar el puntero 'head' pero no decrementa 'size_',
-    //      haciendo que la cola crea que sigue llena. Corrígelo.
+    // TODO: Corregir pop(); avanza el índice 'head' pero omite decrementar 'size_',
+    // provocando que la cola crea estar llena indefinidamente.
     void pop() {
         if (size_ > 0) {
             head = (head + 1) % capacity;
-            size_--; // <- CORRECCIÓN DEL ESTUDIANTE
         }
     }
 
-    int front() const { return data[head]; }
+    // TODO: Validar estado antes de acceder; si la cola está vacía debe evitar
+    // retornar datos basura o sin inicializar (retornar -1 como valor centinela).
+    int front() const {
+        return data[head];
+    }
+
     size_t size() const { return size_; }
     bool empty() const { return size_ == 0; }
 };
 
 int main() {
-    std::cout << "--- [02_correg] PRUEBA: Corrección de Bug en Queue pop() ---\n";
-
     QueueBug q(3);
     q.push(1);
     q.push(2);
@@ -56,15 +49,16 @@ int main() {
     assert(q.size() == 2);
     assert(q.front() == 1);
 
+    // Test de avance y decremento de size_
     q.pop();
-
-    // Sin la corrección, q.size() seguiría siendo 2 en lugar de 1
     assert(q.size() == 1);
     assert(q.front() == 2);
 
     q.pop();
     assert(q.empty());
 
-    std::cout << "✅ [PASS] 04_queue_head_tail_bug_correg.cpp corregido exitosamente.\n";
+    // Test de comportamiento en estado vacío
+    assert(q.front() == -1);
+
     return 0;
 }
