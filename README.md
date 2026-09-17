@@ -38,10 +38,60 @@ g++ -std=c++17 -fsyntax-only ruta/al/archivo.cpp
 # Ejemplos:
 g++ -std=c++17 -fsyntax-only 01_Especificaciones_y_Reglas/01_regla_de_tres_correg.cpp
 g++ -std=c++17 -fsyntax-only 02_Stack_y_Colas/01_stack_underflow_correg.cpp
-g++ -std=c++17 -fsyntax-only 03_Listas_Enlazadas/A_Listas_Simples/01_sorted_insert_soluc.cpp
 ```
 
 `-fsyntax-only` verifica el código sin generar archivos objeto (`.o`) ni ejecutables.
+
+## 🛠️ Flujo de Trabajo Completo desde Terminal (Vim + Git + GitHub CLI)
+
+Guía completa desde cero para clonar, resolver, validar y enviar soluciones o propuestas mediante Pull Request utilizando exclusivamente la terminal de Linux:
+
+### 1. Configuración Única Inicial (Solo la primera vez)
+Si es la primera vez que usas la CLI de GitHub (`gh`), debes vincular tu cuenta:
+
+```bash
+# Iniciar sesión en GitHub desde la terminal
+gh auth login
+
+# Clonar el repositorio central
+git clone [https://github.com/TU_USUARIO/Data_Structures_Exercises.git](https://github.com/TU_USUARIO/Data_Structures_Exercises.git)
+
+# Entrar al directorio del proyecto
+cd Data_Structures_Exercises
+
+# Navegar a la sección a trabajar
+cd 03_Listas_Enlazadas/B_Listas_Dobles
+
+# Ver archivos del directorio
+ls -la
+
+# Crear y cambiar a la nueva rama
+git checkout -b solucion-03B-prob1
+# Abrir el ejercicio en Vim/Nvim
+nvim 01_lista_doble_prev_correg.cpp
+vim 01_lista_doble_prev_correg.cpp
+
+#Compilar
+:!g++ -Wall -Wextra -std=c++17 01_lista_doble_prev_correg.cpp -o run && ./run
+
+#Copiar la resolucion de la carpeta
+cp 01_lista_doble_prev_correg.cpp 03B_Prob1Sol/
+
+### 2.Sugerir cambios y enviar Pull request
+# Confirmar que la solución está en la carpeta de destino
+ls -l 03B_Prob1Sol/
+
+# Agregar únicamente la carpeta de soluciones (evita subir binarios)
+git add 03B_Prob1Sol/
+
+# Crear el commit
+git commit -m "soluc: corrección de punteros prev en 03B_Prob1Sol"
+
+# Subir la rama local al repositorio remoto
+git push origin solucion-03B-prob1
+
+# Crear el Pull Request directamente desde la terminal
+gh pr create --title "soluc: entrega ejercicio 03B Prob1" --body "Solución validada con cassert y sin leaks en Valgrind."
 
 ---
 
