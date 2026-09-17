@@ -1,13 +1,6 @@
-#include <iostream>
 #include <cassert>
+#include <cstddef>
 #include <utility>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 01: Regla de los Cinco (Move Semantics)
-// TIPO: _soluc (Proponer Solución)
-// OBJETIVO: Implementar Constructor de Movimiento y Asignación por Movimiento
-//           robando recursos sin duplicar memoria.
-// ============================================================================
 
 class MoveArray {
 private:
@@ -29,21 +22,17 @@ public:
     size_t get_size() const { return size; }
     int* get_data() const { return data; }
 
-    // ========================================================================
-    // TAREA DEL ESTUDIANTE: IMPLEMENTAR MOVE CONSTRUCTOR Y MOVE ASSIGNMENT
-    // ========================================================================
-
-    // 1. Constructor de Movimiento (Move Constructor)
-    // TODO: Roba el puntero 'data' y el 'size' de 'otro'. Deja 'otro.data' en nullptr.
+    // TODO: Transferir la propiedad de 'data' y 'size', dejando 'otro' en estado neutro.
     MoveArray(MoveArray&& otro) noexcept 
         : data(otro.data), size(otro.size) {
+        // pon tu codigo aqui
         otro.data = nullptr;
         otro.size = 0;
     }
 
-    // 2. Operador de Asignación por Movimiento (Move Assignment)
-    // TODO: Libera la memoria actual, roba los recursos de 'otro' y limpia 'otro'.
+    // TODO: Liberar la memoria actual, robar punteros de 'otro' y dejarlo nulo.
     MoveArray& operator=(MoveArray&& otro) noexcept {
+        // pon tu codigo aqui
         if (this != &otro) {
             delete[] data;
 
@@ -58,26 +47,21 @@ public:
 };
 
 int main() {
-    std::cout << "--- [01_soluc] PRUEBA: Regla de los Cinco (Move Semantics) ---\n";
-
     MoveArray a(5);
     int* original_ptr = a.get_data();
 
-    // Mover a -> b
     MoveArray b = std::move(a);
 
-    assert(b.get_data() == original_ptr); // Mismo puntero físico (sin copia)
+    assert(b.get_data() == original_ptr);
     assert(b.get_size() == 5);
-    assert(a.get_data() == nullptr);     // Fuente limpiada
+    assert(a.get_data() == nullptr);
     assert(a.get_size() == 0);
 
-    // Asignación por movimiento
     MoveArray c(2);
     c = std::move(b);
 
     assert(c.get_data() == original_ptr);
     assert(b.get_data() == nullptr);
 
-    std::cout << "✅ [PASS] 02_regla_de_cinco_movimiento_soluc.cpp completado exitosamente.\n";
     return 0;
 }

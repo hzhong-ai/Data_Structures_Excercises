@@ -1,11 +1,5 @@
-#include <iostream>
 #include <cassert>
-
-// ============================================================================
-// EVALUACIÓN - SECCIÓN 01: Corrección de Copia Superficial (Shallow Copy Bug)
-// TIPO: _correg (Corregir Bug)
-// OBJETIVO: Reparar la clase para que el pase por valor o copia no cause Double Free.
-// ============================================================================
+#include <cstddef>
 
 class SafeArray {
 private:
@@ -28,60 +22,37 @@ public:
     void set(size_t i, int v) { values[i] = v; }
     size_t size() const { return count; }
 
-    // ========================================================================
-    // TAREA DEL ESTUDIANTE: IDENTIFICAR Y REPARAR EL BUG DE DOUBLE FREE
-    // ========================================================================
-    // BUG: La clase usaba la copia por defecto del compilador (Shallow Copy),
-    //      haciendo que dos objetos apunten al mismo bloque de memoria. Al destruirse,
-    //      se producía un Double Free. Implementa Deep Copy para corregirlo.
-
+    // TODO: Corregir la copia superficial (Shallow Copy) para evitar el error de Double Free.
+    // HINT: Reserva un nuevo bloque de memoria con 'new' y realiza una copia profunda (Deep Copy).
     SafeArray(const SafeArray& otro) {
+        // pon tu codigo aqui
+        // PSEUDOSOLUCIÓN / ERROR: Apunta al mismo bloque de memoria
         count = otro.count;
-        if (count > 0) {
-            values = new int[count];
-            for (size_t i = 0; i < count; ++i) {
-                values[i] = otro.values[i];
-            }
-        } else {
-            values = nullptr;
-        }
+        values = otro.values;
     }
 
+    // TODO: Implementar el operador de asignación evitando fugas de memoria y auto-asignación.
+    // HINT: Libera 'values' previo a asignar, valida (this != &otro) y realiza Deep Copy.
     SafeArray& operator=(const SafeArray& otro) {
-        if (this != &otro) {
-            delete[] values;
-
-            count = otro.count;
-            if (count > 0) {
-                values = new int[count];
-                for (size_t i = 0; i < count; ++i) {
-                    values[i] = otro.values[i];
-                }
-            } else {
-                values = nullptr;
-            }
-        }
+        // pon tu codigo aqui
+        // PSEUDOSOLUCIÓN / ERROR: Copia superficial que causará conflicto al destruir
+        count = otro.count;
+        values = otro.values;
         return *this;
     }
 };
 
-// Función auxiliar que pasa por valor (Dispara la copia)
 void procesar_copia(SafeArray arr) {
     arr.set(0, 999);
 }
 
 int main() {
-    std::cout << "--- [01_correg] PRUEBA: Corrección de Copia Superficial ---\n";
-
     SafeArray original(3);
     assert(original.get(0) == 10);
 
-    // Si el estudiante no corrigió la copia, esta llamada destruye los datos de 'original'
     procesar_copia(original);
 
-    // Verificamos que 'original' mantenga sus valores intactos tras la función
     assert(original.get(0) == 10);
 
-    std::cout << "✅ [PASS] 03_copia_superficial_double_free_correg.cpp corregido exitosamente.\n";
     return 0;
 }

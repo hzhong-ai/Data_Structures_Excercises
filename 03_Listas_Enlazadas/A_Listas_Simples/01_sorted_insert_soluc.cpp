@@ -64,5 +64,5 @@ int main() {
 
     freeList(head);
     std::cout << "✅ [PASS] 01_sorted_insert_soluc.cpp completado exitosamente.\n";
-    return 0;
+
 }
