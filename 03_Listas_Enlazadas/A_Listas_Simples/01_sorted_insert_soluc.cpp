@@ -21,6 +21,7 @@ void SortedInsert(Node** headRef, Node* newNode) {
         }
         newNode->next = current->next;
         current->next = newNode;
+     }
     }
 
 void freeList(Node*& head) {
@@ -38,16 +39,18 @@ int main() {
     SortedInsert(&head, new Node(10));
     SortedInsert(&head, new Node(40));
     SortedInsert(&head, new Node(20));
-
     int expected[] = {10, 20, 30, 40};
     Node* curr = head;
-    for (int val : expected) {
-        assert(curr != nullptr);
-        assert(curr->data == val);
-        curr = curr->next;
-    }
-    assert(curr == nullptr);
+    int i = 0;
 
+    while (i < 4) {
+        assert(curr != nullptr);
+        assert(curr->data == expected[i]);
+        curr = curr->next;
+        i++;
+    }
+
+    assert(curr == nullptr);
     freeList(head);
     return 0;
 }

@@ -25,7 +25,7 @@ void ReverseList(Node** headRef) {
         current = next_node;
     }
     *headRef = prev;
-
+}
 void freeList(Node*& head) {
     while (head != nullptr) {
         Node* temp = head;
