@@ -15,7 +15,7 @@ void recursiveReverse(struct Node** headRef) {
     first->next->next = first;
     first->next = NULL;
 
-    *headRef = rest;
+    *headRef = first;
 }
 
 int main(void) {

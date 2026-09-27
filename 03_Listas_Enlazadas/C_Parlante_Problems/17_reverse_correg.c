@@ -11,7 +11,7 @@ void reverse(struct Node** headRef) {
         current = next;
     }
     *headRef = prev;
-
+}
 int main(void) {
     struct Node* head = NULL;
     push(&head, 3);
@@ -27,3 +27,4 @@ int main(void) {
     clear(&head);
     return 0;
 }
+

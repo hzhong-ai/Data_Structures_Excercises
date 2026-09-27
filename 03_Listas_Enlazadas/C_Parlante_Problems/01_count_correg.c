@@ -4,8 +4,9 @@ int count(struct Node* head, int searchFor) {
     struct Node* current = head;
     int c = 0;
     while (current != NULL) {
+        current = current->next;
         // Hint: Revisa la condición de búsqueda y la posición del avance del puntero.
-        if (current->data == searchFor) {
+        if (current->data != searchFor) {
             c++;
         }
         current = current->next;

@@ -15,7 +15,7 @@ void alternatingSplit(struct Node* source, struct Node** aRef, struct Node** bRe
             current = next;
         }
     }
-
+}
 int main(void) {
     struct Node* list = NULL;
     push(&list, 5);

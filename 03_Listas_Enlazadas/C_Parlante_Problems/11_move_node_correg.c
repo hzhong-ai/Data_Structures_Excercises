@@ -2,10 +2,12 @@
 
 void moveNode(struct Node** destRef, struct Node** sourceRef) {
     if (*sourceRef == NULL) return;
+
     struct Node* temp = *sourceRef;
-    *sourceRef = temp->next;
     temp->next = *destRef;
     *destRef = temp;
+    *sourceRef = temp->next;
+}
 
 int main(void) {
     struct Node* dest = NULL;

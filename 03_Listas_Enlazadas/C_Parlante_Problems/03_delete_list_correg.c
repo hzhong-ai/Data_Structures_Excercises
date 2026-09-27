@@ -4,11 +4,13 @@ void deleteList(struct Node** headRef) {
     // Hint: Asegúrate de guardar la referencia al siguiente nodo antes de liberar la memoria del nodo actual y actualiza el puntero original a NULL.
     struct Node* current = *headRef;
     struct Node* next;
+
     while (current != NULL) {
-        next = current->next;
         free(current);
+        next = current->next;
         current = next;
     }
+
     *headRef = NULL;
 }
 

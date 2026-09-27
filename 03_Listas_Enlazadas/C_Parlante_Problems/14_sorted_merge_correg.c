@@ -4,19 +4,22 @@ struct Node* sortedMerge(struct Node* a, struct Node* b) {
     struct Node dummy;
     struct Node* tail = &dummy;
     dummy.next = NULL;
+
     while (a != NULL && b != NULL) {
         if (a->data <= b->data) {
             tail->next = a;
             tail = a;
-            a = a->next;
+            b = b->next;
         } else {
             tail->next = b;
             tail = b;
             b = b->next;
         }
     }
+
     if (a != NULL) tail->next = a;
     if (b != NULL) tail->next = b;
+
     return dummy.next;
 }
 

@@ -4,19 +4,25 @@ struct Node* shuffleMerge(struct Node* a, struct Node* b) {
     struct Node dummy;
     struct Node* tail = &dummy;
     dummy.next = NULL;
+
     while (a != NULL || b != NULL) {
         if (a != NULL) {
             tail->next = a;
             tail = a;
             a = a->next;
         }
+
         if (b != NULL) {
             tail->next = b;
             tail = b;
             b = b->next;
         }
     }
+
+    tail->next = NULL;
+
     return dummy.next;
+}
 
 int main(void) {
     struct Node* a = NULL;

@@ -6,7 +6,8 @@ void frontBackSplit(struct Node* source, struct Node** frontRef, struct Node** b
         *backRef = NULL;
     } else {
         struct Node* slow = source;
-        struct Node* fast = source->next;
+        struct Node* fast = source;
+
         while (fast != NULL) {
             fast = fast->next;
             if (fast != NULL) {
@@ -14,10 +15,12 @@ void frontBackSplit(struct Node* source, struct Node** frontRef, struct Node** b
                 fast = fast->next;
             }
         }
+
         *frontRef = source;
         *backRef = slow->next;
         slow->next = NULL;
     }
+}
 
 int main(void) {
     struct Node* list = NULL;

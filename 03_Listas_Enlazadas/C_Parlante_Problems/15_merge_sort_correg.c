@@ -7,6 +7,7 @@ void frontBackSplit(struct Node* source, struct Node** frontRef, struct Node** b
     } else {
         struct Node* slow = source;
         struct Node* fast = source->next;
+
         while (fast != NULL) {
             fast = fast->next;
             if (fast != NULL) {
@@ -14,6 +15,7 @@ void frontBackSplit(struct Node* source, struct Node** frontRef, struct Node** b
                 fast = fast->next;
             }
         }
+
         *frontRef = source;
         *backRef = slow->next;
         slow->next = NULL;
@@ -24,6 +26,7 @@ struct Node* sortedMerge(struct Node* a, struct Node* b) {
     struct Node dummy;
     struct Node* tail = &dummy;
     dummy.next = NULL;
+
     while (a != NULL && b != NULL) {
         if (a->data <= b->data) {
             tail->next = a;
@@ -35,19 +38,26 @@ struct Node* sortedMerge(struct Node* a, struct Node* b) {
             b = b->next;
         }
     }
+
     if (a != NULL) tail->next = a;
     if (b != NULL) tail->next = b;
+
     return dummy.next;
 }
 
 void mergeSort(struct Node** headRef) {
     if (*headRef == NULL || (*headRef)->next == NULL) return;
+
     struct Node* a;
     struct Node* b;
+
     frontBackSplit(*headRef, &a, &b);
+
     mergeSort(&a);
     mergeSort(&b);
-    *headRef = sortedMerge(a, b);
+
+    *headRef = sortedMerge(a, *headRef);
+}
 
 int main(void) {
     struct Node* head = NULL;
@@ -68,4 +78,3 @@ int main(void) {
     clear(&head);
     return 0;
 }
-

@@ -2,14 +2,18 @@
 
 void append(struct Node** aRef, struct Node** bRef) {
     struct Node* current = *aRef;
+
     if (current == NULL) {
         *aRef = *bRef;
     } else {
         while (current->next != NULL) {
             current = current->next;
         }
+
         current->next = *bRef;
+        *bRef = current;
     }
+
     *bRef = NULL;
 }
 

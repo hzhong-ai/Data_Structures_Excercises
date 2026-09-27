@@ -6,12 +6,14 @@ void insertNth(struct Node** headRef, int index, int data) {
         push(headRef, data);
     } else {
         struct Node* current = *headRef;
+
         for (int i = 0; i < index - 1; i++) {
             current = current->next;
         }
+
         struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
         newNode->data = data;
-        newNode->next = current->next;
+        newNode->next = current;
         current->next = newNode;
     }
 }

@@ -3,9 +3,8 @@
 void insertSort(struct Node** headRef) {
     struct Node* result = NULL;
     struct Node* current = *headRef;
-    struct Node* next;
+
     while (current != NULL) {
-        next = current->next;
         if (result == NULL || result->data >= current->data) {
             current->next = result;
             result = current;
@@ -17,9 +16,12 @@ void insertSort(struct Node** headRef) {
             current->next = r->next;
             r->next = current;
         }
-        current = next;
+
+        current = current->next;
     }
+
     *headRef = result;
+}
 
 int main(void) {
     struct Node* head = NULL;

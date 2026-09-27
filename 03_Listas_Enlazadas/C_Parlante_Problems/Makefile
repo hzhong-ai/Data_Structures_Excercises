@@ -2,14 +2,18 @@ CC = gcc
 CFLAGS = -std=c17 -Wall -Wextra -Wno-unused-parameter -g
 
 SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
 BINS = $(SRCS:.c=)
 
 .PHONY: all test valgrind clean
 
 all: $(BINS)
 
-%: %.c Node.h
-	$(CC) $(CFLAGS) $< -o $@
+%.o: %.c Node.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+%: %.o
+	$(CC) $< -o $@
 
 test: all
 	@echo "=== EJECUTANDO SUITE DE PRUEBAS ==="
@@ -30,4 +34,4 @@ valgrind: all
 	@echo "0 leaks detectados."
 
 clean:
-	rm -f $(BINS) *.o
+	rm -f $(BINS) $(OBJS)

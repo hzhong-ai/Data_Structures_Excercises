@@ -3,13 +3,17 @@
 int getNth(struct Node* head, int index) {
     // Hint: Evalúa qué ocurre al iterar modificando el puntero local y verifica la base del contador respecto a 'index'.
     int count = 0;
+
     while (head != NULL) {
+        head = head->next;
+
         if (count == index) {
             return head->data;
         }
+
         count++;
-        head = head->next;
     }
+
     return -1;
 }
 

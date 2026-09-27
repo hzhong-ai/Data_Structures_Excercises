@@ -4,18 +4,20 @@ struct Node* sortedIntersect(struct Node* a, struct Node* b) {
     struct Node dummy;
     struct Node* tail = &dummy;
     dummy.next = NULL;
+
     while (a != NULL && b != NULL) {
         if (a->data == b->data) {
             push(&(tail->next), a->data);
             tail = tail->next;
             a = a->next;
-            b = b->next;
+            a = a->next;
         } else if (a->data < b->data) {
             a = a->next;
         } else {
             b = b->next;
         }
     }
+
     return dummy.next;
 }
 

@@ -4,8 +4,10 @@ int pop(struct Node** headRef) {
     // Hint: Revisa el orden de liberación de memoria con free() y valida la actualización de *headRef.
     struct Node* temp = *headRef;
     int res = temp->data;
-    *headRef = (*headRef)->next;
+
     free(temp);
+    *headRef = (*headRef)->next;
+
     return res;
 }
 

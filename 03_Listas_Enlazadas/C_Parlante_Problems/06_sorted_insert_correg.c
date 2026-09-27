@@ -12,7 +12,8 @@ void sortedInsert(struct Node** headRef, int data) {
     }
 
     struct Node* current = *headRef;
-    while (current->next != NULL && current->next->data < data) {
+
+    while (current->next->data < data) {
         current = current->next;
     }
 
