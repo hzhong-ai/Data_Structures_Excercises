@@ -68,7 +68,7 @@ public:
         size_--;
 
         return true;
-    }  // <-- ESTA ERA LA QUE FALTABA
+    }  
 
     size_t size() const { return size_; }
     bool empty() const { return size_ == 0; }
