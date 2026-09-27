@@ -1,4 +1,3 @@
-```cpp
 #include <cassert>
 #include <cstddef>
 
@@ -47,5 +46,4 @@ int main() {
     freeList(head);
     return 0;
 }
-```
 

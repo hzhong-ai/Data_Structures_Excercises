@@ -8,24 +8,16 @@ struct Node {
 };
 
 // TODO: Implementar la inversión de una lista simplemente enlazada in-place.
-// HINT: 
+// HINT:
 // 1. Rastrear tres punteros durante el recorrido: 'prev' (inicialmente nullptr),
 //    'current' (inicialmente *headRef) y 'next_node' (para guardar current->next).
 // 2. En cada iteración, invertir el enlace: current->next = prev.
 // 3. Avanzar 'prev' a 'current' y 'current' a 'next_node'.
 // 4. Al finalizar el bucle, actualizar *headRef al nuevo primer nodo ('prev').
 void ReverseList(Node** headRef) {
-    Node* prev = nullptr;
-    Node* current = *headRef;
-    Node* next_node = nullptr;
-    while (current != nullptr) {
-        next_node = current->next;
-        current->next = prev;
-        prev = current;
-        current = next_node;
-    }
-    *headRef = prev;
+    // TODO
 }
+
 void freeList(Node*& head) {
     while (head != nullptr) {
         Node* temp = head;
@@ -44,11 +36,13 @@ int main() {
     // Salida esperada: 40 -> 30 -> 20 -> 10 -> nullptr
     int expected[] = {40, 30, 20, 10};
     Node* curr = head;
+
     for (int val : expected) {
         assert(curr != nullptr);
         assert(curr->data == val);
         curr = curr->next;
     }
+
     assert(curr == nullptr);
 
     freeList(head);

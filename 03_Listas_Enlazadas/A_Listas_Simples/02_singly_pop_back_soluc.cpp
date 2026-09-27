@@ -42,33 +42,14 @@ public:
     // TODO: Implementar pop_back().
     // HINT:
     // 1. Si la lista está vacía, retornar false.
-    // 2. Si la lista tiene un solo elemento (head == tail), liberar el nodo, dejar head y tail en nullptr, actualizar size_ y retornar true.
-    // 3. Si tiene más de un elemento, recorrer la lista hasta el penúltimo nodo (curr->next == tail), liberar 'tail', actualizar 'tail' a 'curr', colocar tail->next = nullptr, decrementar size_ y retornar true.
+    // 2. Si la lista tiene un solo elemento (head == tail), liberar el nodo,
+    //    dejar head y tail en nullptr, actualizar size_ y retornar true.
+    // 3. Si tiene más de un elemento, recorrer la lista hasta el penúltimo
+    //    nodo (curr->next == tail), liberar 'tail', actualizar 'tail' a 'curr',
+    //    colocar tail->next = nullptr, decrementar size_ y retornar true.
     bool pop_back() {
-        if (head == nullptr) {
-            return false;
-        }
-
-        if (head == tail) {
-            delete head;
-            head = tail = nullptr;
-            size_ = 0;
-            return true;
-        }
-
-        Node* curr = head;
-
-        while (curr->next != tail) {
-            curr = curr->next;
-        }
-
-        delete tail;
-        tail = curr;
-        tail->next = nullptr;
-        size_--;
-
-        return true;
-    }  
+        // TODO
+    }
 
     size_t size() const { return size_; }
     bool empty() const { return size_ == 0; }

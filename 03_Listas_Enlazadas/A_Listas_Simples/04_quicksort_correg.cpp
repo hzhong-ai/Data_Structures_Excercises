@@ -20,7 +20,7 @@ Node* getTail(Node* cur) {
 //       'newHead', se olvida aislar el nodo (falta 'curr->next = nullptr' o reconexión limpia),
 //       dejando punteros colgantes que generan ciclos.
 //
-// BUG 2 (Desconexión del Pivote): El pivote debe quedar aislado al final de la partición 
+// BUG 2 (Desconexión del Pivote): El pivote debe quedar aislado al final de la partición
 //       (pivot->next = nullptr) antes de unirse recursivamente. Al no aislarlo,
 //       mantiene enlaces hacia la sublista derecha y duplica elementos.
 //
@@ -45,8 +45,6 @@ Node* partition(Node* head, Node* end, Node** newHead, Node** newEnd) {
 
             tail->next = curr;
             tail = curr;
-            tail->next = nullptr;
-
             curr = tmp;
         }
     }
@@ -54,7 +52,6 @@ Node* partition(Node* head, Node* end, Node** newHead, Node** newEnd) {
     if (*newHead == nullptr) *newHead = pivot;
     *newEnd = tail;
 
-    pivot->next = nullptr;
     return pivot;
 }
 
@@ -92,19 +89,19 @@ void freeList(Node*& head) {
 }
 
 int main() {
-    // Lista desordenada: 30 -> 10 -> 40 -> 20 -> 50
     Node* head = new Node(30, new Node(10, new Node(40, new Node(20, new Node(50)))));
 
     head = quickSort(head);
 
-    // Salida esperada: 10 -> 20 -> 30 -> 40 -> 50
     int expected[] = {10, 20, 30, 40, 50};
     Node* curr = head;
+
     for (int val : expected) {
         assert(curr != nullptr);
         assert(curr->data == val);
         curr = curr->next;
     }
+
     assert(curr == nullptr);
 
     freeList(head);
