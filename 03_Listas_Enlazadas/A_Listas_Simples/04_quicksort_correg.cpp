@@ -43,9 +43,9 @@ Node* partition(Node* head, Node* end, Node** newHead, Node** newEnd) {
             if (prev) prev->next = curr->next;
             Node* tmp = curr->next;
 
-            // BUG 1 y 3: Se añade a la cola pero no se corta curr->next ni se actualiza *newEnd
             tail->next = curr;
             tail = curr;
+            tail->next = nullptr;
 
             curr = tmp;
         }
@@ -54,7 +54,7 @@ Node* partition(Node* head, Node* end, Node** newHead, Node** newEnd) {
     if (*newHead == nullptr) *newHead = pivot;
     *newEnd = tail;
 
-    // BUG 2: Falta aislar el pivote (*pivot->next = nullptr* o corte explícito)
+    pivot->next = nullptr;
     return pivot;
 }
 

@@ -15,7 +15,16 @@ struct Node {
 // 3. Avanzar 'prev' a 'current' y 'current' a 'next_node'.
 // 4. Al finalizar el bucle, actualizar *headRef al nuevo primer nodo ('prev').
 void ReverseList(Node** headRef) {
-}
+    Node* prev = nullptr;
+    Node* current = *headRef;
+    Node* next_node = nullptr;
+    while (current != nullptr) {
+        next_node = current->next;
+        current->next = prev;
+        prev = current;
+        current = next_node;
+    }
+    *headRef = prev;
 
 void freeList(Node*& head) {
     while (head != nullptr) {

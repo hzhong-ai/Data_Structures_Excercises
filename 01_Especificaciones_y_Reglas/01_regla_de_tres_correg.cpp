@@ -33,14 +33,31 @@ public:
     // HINT: Reserva memoria con 'new' y copia elemento por elemento para lograr Deep Copy.
     DynamicBuffer(const DynamicBuffer& otro) {
         capacity = otro.capacity;
-        data = otro.data;
+        if (capacity > 0) {
+            data = new int[capacity];
+            for (size_t i = 0; i < capacity; ++i) {
+                data[i] = otro.data[i];
+            }
+        } else {
+            data = nullptr;
+        }
     }
 
     // TODO: Implementar asignación segura evitando fugas de memoria y auto-asignación.
     // HINT: Libera 'data' previo a asignar, valida (this != &otro) y copia el buffer.
     DynamicBuffer& operator=(const DynamicBuffer& otro) {
-        capacity = otro.capacity;
-        data = otro.data;
+        if (this != &otro) {
+            delete[] data;
+            capacity = otro.capacity;
+            if (capacity > 0) {
+                data = new int[capacity];
+                for (size_t i = 0; i < capacity; ++i) {
+                    data[i] = otro.data[i];
+                }
+            } else {
+                data = nullptr;
+            }
+        }
         return *this;
     }
 };

@@ -8,9 +8,12 @@ private:
     size_t size = 0;
     size_t capacity = 0;
 
-    // TODO: Implementar reallocate(new_cap). Debe alojar un nuevo arreglo, 
-    // copiar los elementos actuales, liberar la memoria anterior y actualizar capacidad.
     void reallocate(size_t new_cap) {
+        T* new_data = new T[new_cap];
+        for (size_t i = 0; i < size; ++i) new_data[i] = data[i];
+        delete[] data;
+        data = new_data;
+        capacity = new_cap;
     }
 
 public:
@@ -22,9 +25,9 @@ public:
         delete[] data;
     }
 
-    // TODO: Implementar push. Debe invocar reallocate(capacity * 2) cuando size == capacity
-    // e insertar el nuevo elemento.
     void push(const T& val) {
+        if (size == capacity) reallocate(capacity == 0 ? 1 : capacity * 2);
+        data[size++] = val;
     }
 
     void pop() {

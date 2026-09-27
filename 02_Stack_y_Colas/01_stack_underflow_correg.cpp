@@ -11,7 +11,7 @@ private:
     void reallocate(size_t new_cap) {
         T* new_data = new T[new_cap];
         for (size_t i = 0; i < size; ++i) new_data[i] = data[i];
-        // TODO: Corregir fuga de memoria liberando el arreglo 'data' anterior antes de reasignar.
+        delete[] data;
         data = new_data;
         capacity = new_cap;
     }
@@ -21,22 +21,21 @@ public:
         data = new T[capacity];
     }
 
-    // TODO: Corregir destructor liberando la memoria dinámica retenida en 'data'.
-    ~ArrayStack() {}
+    ~ArrayStack() {
+        delete[] data;
+    }
 
     void push(const T& val) {
         if (size == capacity) reallocate(capacity * 2);
         data[size++] = val;
     }
 
-    // TODO: Corregir underflow en 'size' (size_t) cuando la pila está vacía.
     void pop() {
-        size--;
+        if (size > 0) size--;
     }
 
-    // TODO: Corregir el índice accedido; debe retornar el último elemento insertado (size - 1).
     T top() const {
-        return data[size];
+        return size > 0 ? data[size - 1] : T();
     }
 
     bool empty() const { return size == 0; }

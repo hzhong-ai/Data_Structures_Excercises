@@ -38,7 +38,7 @@ public:
         }
 
         tail->next = newNode;
-        // BUG: Falta asignar newNode->prev = tail;
+        newNode->prev = tail;
         tail = newNode;
     }
 

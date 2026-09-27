@@ -23,18 +23,15 @@ public:
         }
     }
 
-    // TODO: Corregir pop(); avanza el índice 'head' pero omite decrementar 'size_',
-    // provocando que la cola crea estar llena indefinidamente.
     void pop() {
         if (size_ > 0) {
             head = (head + 1) % capacity;
+            size_--;
         }
     }
 
-    // TODO: Validar estado antes de acceder; si la cola está vacía debe evitar
-    // retornar datos basura o sin inicializar (retornar -1 como valor centinela).
     int front() const {
-        return data[head];
+        return size_ > 0 ? data[head] : -1;
     }
 
     size_t size() const { return size_; }

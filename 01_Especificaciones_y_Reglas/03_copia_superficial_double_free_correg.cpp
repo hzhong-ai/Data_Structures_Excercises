@@ -25,19 +25,28 @@ public:
     // TODO: Corregir la copia superficial (Shallow Copy) para evitar el error de Double Free.
     // HINT: Reserva un nuevo bloque de memoria con 'new' y realiza una copia profunda (Deep Copy).
     SafeArray(const SafeArray& otro) {
-        // pon tu codigo aqui
-        // PSEUDOSOLUCIÓN / ERROR: Apunta al mismo bloque de memoria
         count = otro.count;
-        values = otro.values;
+        if (count > 0) {
+            values = new int[count];
+            for (size_t i = 0; i < count; ++i) values[i] = otro.values[i];
+        } else {
+            values = nullptr;
+        }
     }
 
     // TODO: Implementar el operador de asignación evitando fugas de memoria y auto-asignación.
     // HINT: Libera 'values' previo a asignar, valida (this != &otro) y realiza Deep Copy.
     SafeArray& operator=(const SafeArray& otro) {
-        // pon tu codigo aqui
-        // PSEUDOSOLUCIÓN / ERROR: Copia superficial que causará conflicto al destruir
-        count = otro.count;
-        values = otro.values;
+        if (this != &otro) {
+            delete[] values;
+            count = otro.count;
+            if (count > 0) {
+                values = new int[count];
+                for (size_t i = 0; i < count; ++i) values[i] = otro.values[i];
+            } else {
+                values = nullptr;
+            }
+        }
         return *this;
     }
 };

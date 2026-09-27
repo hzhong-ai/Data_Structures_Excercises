@@ -9,10 +9,15 @@ private:
     size_t size = 0;
     size_t capacity = 0;
 
-    // TODO: Redimensionar y des-circularizar el arreglo en un nuevo bloque lineal.
-    // HINT: Mapear cada elemento i con la fórmula de acceso circular: (head + i) % capacity,
-    // copiar al nuevo buffer en orden lineal, actualizar 'head' a 0 y liberar la memoria anterior.
     void reallocate(size_t new_cap) {
+        T* new_data = new T[new_cap];
+        for (size_t i = 0; i < size; ++i) {
+            new_data[i] = data[(head + i) % capacity];
+        }
+        delete[] data;
+        data = new_data;
+        capacity = new_cap;
+        head = 0;
     }
 
 public:

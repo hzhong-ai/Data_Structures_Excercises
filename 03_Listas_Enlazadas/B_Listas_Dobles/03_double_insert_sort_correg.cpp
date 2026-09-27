@@ -55,7 +55,7 @@ public:
         DNode* curr = head->next;
 
         while (curr != nullptr) {
-            // BUG 1: Falta guardar el puntero 'next_node' antes de mover 'curr'
+            DNode* next_node = curr->next;
             DNode* target = curr->prev;
 
             // Buscar la posición correcta hacia la izquierda
@@ -70,7 +70,7 @@ public:
                 if (curr->next != nullptr) {
                     curr->next->prev = curr->prev;
                 } else {
-                    // BUG 3: Se omite actualizar 'tail = curr->prev' al mover el último nodo
+                    tail = curr->prev;
                 }
 
                 // Reinsertar 'curr' después de 'target' (o en la cabeza si target es nullptr)
@@ -82,13 +82,14 @@ public:
                 } else {
                     curr->next = target->next;
                     curr->prev = target;
-                    // BUG 2: Falta actualizar target->next->prev = curr si target->next existe
+                    if (target->next != nullptr) {
+                        target->next->prev = curr;
+                    }
                     target->next = curr;
                 }
             }
 
-            // BUG 1: El avance usa 'curr->next', que ya fue sobrescrito durante la recolocación
-            curr = curr->next;
+            curr = next_node;
         }
     }
 

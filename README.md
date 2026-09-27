@@ -42,6 +42,16 @@ g++ -std=c++17 -fsyntax-only 02_Stack_y_Colas/01_stack_underflow_correg.cpp
 
 `-fsyntax-only` verifica el código sin generar archivos objeto (`.o`) ni ejecutables.
 
+### 2. Ejecución de Pruebas con Makefiles
+
+Cada sección cuenta ahora con un `Makefile` preconfigurado. Puedes entrar al directorio correspondiente y correr todas las pruebas juntas:
+
+```bash
+cd 01_Especificaciones_y_Reglas
+make test
+```
+Esto compilará todos los ejercicios de la carpeta y los ejecutará asegurando que funcionen correctamente.
+
 ## 🛠️ Flujo de Trabajo Completo desde Terminal (Vim + Git + GitHub CLI)
 
 Guía completa desde cero para clonar, resolver, validar y enviar soluciones o propuestas mediante Pull Request utilizando exclusivamente la terminal de Linux:
@@ -111,6 +121,7 @@ gh pr create --title "soluc: entrega ejercicio 03B Prob1" --body "Solución vali
 ```text
 .
 ├── 📁 01_Especificaciones_y_Reglas/
+│   ├── Makefile
 │   ├── 01_Prob1Sol/
 │   ├── 02_Prob2Sol/
 │   ├── 03_Prob3Sol/
@@ -120,6 +131,7 @@ gh pr create --title "soluc: entrega ejercicio 03B Prob1" --body "Solución vali
 │   ├── 03_copia_superficial_double_free_correg.cpp
 │   └── 04_ejercicio_regla_de_cinco_sol.cpp
 ├── 📁 02_Stack_y_Colas/
+│   ├── Makefile
 │   ├── 01_stack_underflow_correg.cpp
 │   ├── 02_Prob1Sol/
 │   ├── 02_Prob2Sol/
@@ -130,6 +142,7 @@ gh pr create --title "soluc: entrega ejercicio 03B Prob1" --body "Solución vali
 │   └── 04_queue_head_tail_bug_correg.cpp
 ├── 📁 03_Listas_Enlazadas/
 │   ├── 📁 A_Listas_Simples/
+│   │   ├── Makefile
 │   │   ├── 01_sorted_insert_soluc.cpp
 │   │   ├── 02_singly_pop_back_soluc.cpp
 │   │   ├── 03A_Prob1Sol/
@@ -138,13 +151,20 @@ gh pr create --title "soluc: entrega ejercicio 03B Prob1" --body "Solución vali
 │   │   ├── 03A_Prob4Sol/
 │   │   ├── 03_detect_cycle_floyd_soluc.cpp
 │   │   └── 04_wrong_push_leak_correg.cpp
-│   └── 📁 B_Listas_Dobles/
-│       ├── 01_lista_doble_prev_correg.cpp
-│       ├── 02_doubly_erase_node_soluc.cpp
-│       ├── 03B_Prob1Sol/
-│       ├── 03B_Prob2Sol/
-│       ├── 03B_Prob3Sol/
-│       └── 03_doubly_insert_before_soluc.cpp
+│   ├── 📁 B_Listas_Dobles/
+│   │   ├── Makefile
+│   │   ├── 01_lista_doble_prev_correg.cpp
+│   │   ├── 02_doubly_erase_node_soluc.cpp
+│   │   ├── 03B_Prob1Sol/
+│   │   ├── 03B_Prob2Sol/
+│   │   ├── 03B_Prob3Sol/
+│   │   └── 03_doubly_insert_before_soluc.cpp
+│   └── 📁 C_Parlante_Problems/
+│       ├── Makefile
+│       ├── Node.h
+│       ├── 01_count_correg.c
+│       ├── 02_get_nth_correg.c
+│       └── ... (18 problemas de Nick Parlante)
 └── 📄 README.md
 ```
 
