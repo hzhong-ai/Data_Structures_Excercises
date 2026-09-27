@@ -1,3 +1,4 @@
+```cpp
 #include <cassert>
 #include <cstddef>
 
@@ -11,18 +12,8 @@ struct Node {
 // HINT: Rastrear el nodo anterior ('prev') y el actual ('current') para insertar en la posición correcta.
 // Manejar correctamente el caso límite en que el nodo deba insertarse en la cabeza (prev == nullptr).
 void SortedInsert(Node** headRef, Node* newNode) {
-    if (*headRef == nullptr || (*headRef)->data >= newNode->data) {
-        newNode->next = *headRef;
-        *headRef = newNode;
-    } else {
-        Node* current = *headRef;
-        while (current->next != nullptr && current->next->data < newNode->data) {
-            current = current->next;
-        }
-        newNode->next = current->next;
-        current->next = newNode;
-     }
-    }
+    // TODO
+}
 
 void freeList(Node*& head) {
     while (head != nullptr) {
@@ -39,6 +30,7 @@ int main() {
     SortedInsert(&head, new Node(10));
     SortedInsert(&head, new Node(40));
     SortedInsert(&head, new Node(20));
+
     int expected[] = {10, 20, 30, 40};
     Node* curr = head;
     int i = 0;
@@ -51,6 +43,9 @@ int main() {
     }
 
     assert(curr == nullptr);
+
     freeList(head);
     return 0;
 }
+```
+
